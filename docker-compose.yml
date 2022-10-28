@@ -3,7 +3,7 @@ version: '3.5'
 services:
 
   icecast:
-    image: icecast:latest
+    image: ghcr.io/kj-jondell/icecast:latest
     container_name: icecast
     ports:
       - "8000:8000"
@@ -16,5 +16,10 @@ services:
     container_name: supercollider-gstreamer
     shm_size: 256m
     privileged: true
+    volumes:
+      - ./startup.sh:/opt/startup.sh
     ports:
-      - "5000:5000/udp"
+      - "50000:50000/udp"
+    command: /bin/bash -c /opt/startup.sh
+    environment:
+      - SC_PORT=50000
