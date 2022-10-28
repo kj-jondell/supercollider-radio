@@ -1,0 +1,20 @@
+version: '3.5'
+
+services:
+
+  icecast:
+    image: icecast:latest
+    container_name: icecast
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./icecast.xml:/etc/icecast2/icecast.xml:ro
+    command: /usr/bin/icecast2 -c /etc/icecast2/icecast.xml
+
+  sc-gstreamer:
+    image: ghcr.io/kj-jondell/sc-and-gstreamer:latest
+    container_name: supercollider-gstreamer
+    shm_size: 256m
+    privileged: true
+    ports:
+      - "5000:5000/udp"
