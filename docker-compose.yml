@@ -14,7 +14,10 @@ services:
   sc-gstreamer:
     image: ghcr.io/kj-jondell/sc-and-gstreamer:latest
     container_name: supercollider-gstreamer
-    shm_size: 256m
+    shm_size: 1024m
+    ulimits:
+      memlock: -1
+      rtprio: 99
     privileged: true
     volumes:
       - ./startup.sh:/opt/startup.sh
